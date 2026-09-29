@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d1fae5" />
+      <stop offset="100%" stop-color="#a7f3d0" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#064e3b" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background Rounded Tile -->
+  <rect width="512" height="512" rx="112" ry="112" fill="url(#bgGrad)" />
+
+  <!-- Shovel Graphic centered in 512x512 -->
+  <g transform="translate(106, 106) scale(12.5)" filter="url(#shadow)">
+    <!-- Shovel Blade -->
+    <path
+      d="M2 22v-5l5-5 5 5-5 5z"
+      fill="url(#bladeGrad)"
+      stroke="#ffffff"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <!-- Shovel Shaft -->
+    <path
+      d="M9.5 14.5 16 8"
+      stroke="#ffffff"
+      stroke-width="2.2"
+      stroke-linecap="round"
+    />
+    <!-- Shovel Handle -->
+    <path
+      d="m17 2 5 5-.5.5a3.53 3.53 0 0 1-5 0s0 0 0 0a3.53 3.53 0 0 1 0-5L17 2"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="2.2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+</svg>

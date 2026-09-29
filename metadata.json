@@ -1,0 +1,6 @@
+{
+  "name": "Landscape Cost Calculator",
+  "description": "Professional landscaping cost estimation tool and material calculators for homeowners and contractors.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+:root {
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 200ms;
+  --duration-med: 300ms;
+  --duration-slow: 600ms;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Keyframes */
+@keyframes heroFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroImageReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes logoFade {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes dropdownFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobileDrawerSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardResultHighlight {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Animation Classes */
+.animate-hero-badge {
+  animation: heroFadeUp 450ms var(--ease-premium) 0ms both;
+}
+
+.animate-hero-h1 {
+  animation: heroFadeUp 600ms var(--ease-premium) 100ms both;
+}
+
+.animate-hero-desc {
+  animation: heroFadeUp 450ms var(--ease-premium) 180ms both;
+}
+
+.animate-hero-cta {
+  animation: heroFadeUp 400ms var(--ease-premium) 250ms both;
+}
+
+.animate-hero-image {
+  animation: heroImageReveal 800ms var(--ease-premium) 300ms both;
+}
+
+.animate-logo-icon {
+  animation: logoFade 450ms var(--ease-premium) 0ms both;
+}
+
+.animate-logo-text {
+  animation: logoFade 450ms var(--ease-premium) 60ms both;
+}
+
+.animate-logo-sub {
+  animation: logoFade 450ms var(--ease-premium) 120ms both;
+}
+
+.animate-dropdown {
+  animation: dropdownFadeIn 200ms var(--ease-premium) both;
+}
+
+.animate-mobile-drawer {
+  animation: mobileDrawerSlide 240ms var(--ease-premium) both;
+}
+
+.animate-page-enter {
+  animation: pageFadeIn 200ms var(--ease-premium) both;
+}
+
+.animate-result-card {
+  animation: cardResultHighlight 400ms var(--ease-premium) both;
+}
+
+/* Micro-interaction Utility Classes */
+.hover-lift {
+  transition: transform 240ms var(--ease-premium), box-shadow 240ms var(--ease-premium), border-color 240ms var(--ease-premium);
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+}
+.hover-lift:active {
+  transform: scale(0.985);
+}
+
+.hover-lift-sm {
+  transition: transform 180ms var(--ease-premium), box-shadow 180ms var(--ease-premium), background-color 180ms var(--ease-premium);
+}
+.hover-lift-sm:hover {
+  transform: translateY(-1px);
+}
+.hover-lift-sm:active {
+  transform: scale(0.98);
+}
+
+.hover-image-zoom {
+  transition: transform 600ms var(--ease-premium);
+}
+.hover-image-zoom:hover {
+  transform: scale(1.018);
+}
+
+/* Input & Select Focus System */
+input, select, textarea {
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+/* Print Styles */
+@media print {
+  header, footer, nav, .no-print, .ad-slot, button:not(.print-include) {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-sheet {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+    padding: 0 !important;
+  }
+}
+
+/* Accessibility: Prefers Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .hover-lift:hover,
+  .hover-lift-sm:hover,
+  .hover-image-zoom:hover {
+    transform: none !important;
+  }
+}
