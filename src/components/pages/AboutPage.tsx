@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shovel, ShieldCheck, Ruler, Award, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Ruler, Award, CheckCircle2 } from 'lucide-react';
 import { BRAND_NAME, SITE_DOMAIN, SEO_PAGES } from '../../data/seoDatabase';
 import { Breadcrumbs } from '../layout/Breadcrumbs';
 import { SEOHead } from '../seo/SEOHead';

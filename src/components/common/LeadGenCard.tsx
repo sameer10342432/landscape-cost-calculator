@@ -69,10 +69,10 @@ export const LeadGenCard: React.FC = () => {
 
             <button
               type="submit"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer shrink-0"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl hover-lift-sm active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shrink-0 group"
             >
               <span>Find Landscaping Pros</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
             </button>
           </form>
         )}

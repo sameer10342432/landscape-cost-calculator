@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Trees, Calculator, Printer, ArrowRight } from 'lucide-react';
 import { formatCurrency, TREE_SIZES, TREE_FEES } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface TreePlantingCalculatorProps {
   unitSystem: UnitSystem;
@@ -166,44 +167,44 @@ export const TreePlantingCalculator: React.FC<TreePlantingCalculatorProps> = ({
               <span className="text-xs text-stone-400">{treeQuantity} trees ({selectedSize.name.split(' ')[0]})</span>
             </div>
 
-            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700">
+            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700 animate-result-card">
               <span className="text-xs text-stone-400 block mb-1">Total Installed Investment</span>
               <div className="text-4xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-                {formatCurrency(totalCost)}
+                <AnimatedPrice value={totalCost} />
               </div>
               <div className="text-xs text-emerald-400 mt-2 font-semibold">
-                Average {formatCurrency(costPerTree)} per tree fully installed
+                Average <AnimatedPrice value={costPerTree} /> per tree fully installed
               </div>
               <div className="mt-2 text-xs text-stone-300">
-                Range: {formatCurrency(totalCost * 0.9)} – {formatCurrency(totalCost * 1.15)}
+                Range: <AnimatedPrice value={totalCost * 0.9} /> – <AnimatedPrice value={totalCost * 1.15} />
               </div>
             </div>
 
             <div className="space-y-2.5 text-xs text-stone-300 border-t border-b border-stone-800 py-3 mb-4">
               <div className="flex justify-between items-center">
                 <span>Nursery Trees ({treeQuantity}x):</span>
-                <span className="font-semibold text-white">{formatCurrency(treeBaseCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={treeBaseCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Excavation & Planting Labor:</span>
-                <span className="font-semibold text-white">{formatCurrency(plantingLaborCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={plantingLaborCost} /></span>
               </div>
               {includeSoilCompost && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Soil Amendments & Starter:</span>
-                  <span>{formatCurrency(compostCost)}</span>
+                  <span><AnimatedPrice value={compostCost} /></span>
                 </div>
               )}
               {includeStaking && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Stakes, Ties & Mulch Rings:</span>
-                  <span>{formatCurrency(stakingCost)}</span>
+                  <span><AnimatedPrice value={stakingCost} /></span>
                 </div>
               )}
               {includeDelivery && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Flatbed Nursery Delivery:</span>
-                  <span>{formatCurrency(deliveryCost)}</span>
+                  <span><AnimatedPrice value={deliveryCost} /></span>
                 </div>
               )}
             </div>

@@ -8,6 +8,7 @@ import { AdPlaceholder } from '../common/AdPlaceholder';
 import { LeadGenCard } from '../common/LeadGenCard';
 import { OptimizedImage } from '../common/OptimizedImage';
 import { ScrollReveal } from '../common/ScrollReveal';
+import { FaqAccordion } from '../common/FaqAccordion';
 import {
   Calculator,
   ArrowRight,
@@ -352,20 +353,11 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem, onNavigate }) =>
           </div>
         </ScrollReveal>
 
-        <div className="space-y-4">
-          {metadata.faqs?.map((faq, idx) => (
-            <ScrollReveal key={idx} delayMs={idx * 50}>
-              <div className="bg-stone-50 hover:bg-stone-50/80 rounded-2xl p-5 border border-stone-200 hover:border-emerald-300/80 transition-colors duration-200">
-                <h3 className="font-heading font-bold text-base text-stone-900 mb-2">
-                  {faq.question}
-                </h3>
-                <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
+        {metadata.faqs && metadata.faqs.length > 0 && (
+          <ScrollReveal delayMs={100}>
+            <FaqAccordion faqs={metadata.faqs} />
+          </ScrollReveal>
+        )}
       </section>
     </div>
   );

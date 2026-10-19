@@ -10,6 +10,7 @@ import {
   SQ_FT_TO_SQ_METERS,
 } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface PaverCalculatorProps {
   unitSystem: UnitSystem;
@@ -278,10 +279,10 @@ export const PaverCalculator: React.FC<PaverCalculatorProps> = ({ unitSystem, on
             </div>
 
             {/* Total Pavers Count */}
-            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700">
+            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700 animate-result-card">
               <span className="text-xs text-stone-400 block mb-1">Total Pavers Needed</span>
               <div className="text-4xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-                {totalPaversNeeded.toLocaleString()}
+                <AnimatedPrice value={totalPaversNeeded} prefix="" decimals={0} />
               </div>
               <div className="text-xs text-stone-300 mt-2 font-medium">
                 Includes <strong className="text-emerald-400">+{wastePavers} pavers</strong> for {wasteFactorPercent}% cutting waste
@@ -292,7 +293,7 @@ export const PaverCalculator: React.FC<PaverCalculatorProps> = ({ unitSystem, on
             <div className="space-y-2.5 text-xs text-stone-300 border-t border-b border-stone-800 py-3 mb-4">
               <div className="flex justify-between items-center">
                 <span>{selectedPreset.name} ({totalPaversNeeded} pcs):</span>
-                <span className="font-semibold text-white">{formatCurrency(paversCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={paversCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>
@@ -302,21 +303,21 @@ export const PaverCalculator: React.FC<PaverCalculatorProps> = ({ unitSystem, on
                     : `${gravelTons} tons @ ${baseDepth}"`}
                   ):
                 </span>
-                <span className="font-semibold text-white">{formatCurrency(gravelCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={gravelCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>
                   Bedding Sand ({isMetric ? `${sandTonnes} tonnes @ 2.5cm` : `${sandTons} tons @ 1"`}):
                 </span>
-                <span className="font-semibold text-white">{formatCurrency(sandCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={sandCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Polymeric Joint Sand ({polymericSandBags} bags):</span>
-                <span className="font-semibold text-white">{formatCurrency(polymericSandCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={polymericSandCost} /></span>
               </div>
               <div className="pt-2 border-t border-stone-800 flex justify-between items-center font-bold text-white text-sm">
                 <span>DIY Material Subtotal:</span>
-                <span className="text-emerald-400">{formatCurrency(totalMaterialCost)}</span>
+                <span className="text-emerald-400"><AnimatedPrice value={totalMaterialCost} /></span>
               </div>
             </div>
 
@@ -326,7 +327,7 @@ export const PaverCalculator: React.FC<PaverCalculatorProps> = ({ unitSystem, on
                 Estimated Turnkey Installed Cost:
               </span>
               <div className="text-xl font-bold text-white">
-                {formatCurrency(estimatedInstalledCost * 0.85)} – {formatCurrency(estimatedInstalledCost * 1.25)}
+                <AnimatedPrice value={estimatedInstalledCost * 0.85} /> – <AnimatedPrice value={estimatedInstalledCost * 1.25} />
               </div>
               <p className="text-[11px] text-stone-400 mt-1">
                 Includes excavation, grading, base compaction, paver laying, edge restraints & joint sanding.

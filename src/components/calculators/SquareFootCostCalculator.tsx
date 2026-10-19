@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Ruler, Calculator, Printer, CheckCircle, ArrowRight } from 'lucide-react';
 import { formatCurrency, SQFT_TIERS, SQ_METERS_TO_SQ_FT } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface SquareFootCostCalculatorProps {
   unitSystem: UnitSystem;
@@ -104,7 +105,7 @@ export const SquareFootCostCalculator: React.FC<SquareFootCostCalculatorProps> =
             return (
               <div
                 key={tier.id}
-                className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between shadow-xs hover:border-emerald-300 transition-all"
+                className="bg-white rounded-2xl border border-stone-200 p-6 flex flex-col justify-between shadow-xs card-interactive transition-all"
               >
                 <div>
                   <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">
@@ -117,10 +118,10 @@ export const SquareFootCostCalculator: React.FC<SquareFootCostCalculatorProps> =
                   <div className="bg-stone-50 rounded-xl p-4 border border-stone-200 mb-4 text-center">
                     <span className="text-xs text-stone-500 block">Estimated Project Range</span>
                     <div className="text-2xl font-bold text-stone-900 mt-0.5">
-                      {formatCurrency(lowTotal)} – {formatCurrency(highTotal)}
+                      <AnimatedPrice value={lowTotal} /> – <AnimatedPrice value={highTotal} />
                     </div>
                     <span className="text-[11px] text-emerald-700 font-semibold block mt-1">
-                      Avg Benchmark: {formatCurrency(avgTotal)}
+                      Avg Benchmark: <AnimatedPrice value={avgTotal} />
                     </span>
                   </div>
 

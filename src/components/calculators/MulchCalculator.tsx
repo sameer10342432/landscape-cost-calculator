@@ -11,6 +11,7 @@ import {
   CU_METERS_TO_CU_YARDS,
 } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface MulchCalculatorProps {
   unitSystem: UnitSystem;
@@ -287,10 +288,10 @@ export const MulchCalculator: React.FC<MulchCalculatorProps> = ({ unitSystem, on
             </div>
 
             {/* Primary Volume Metric */}
-            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700">
+            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700 animate-result-card">
               <span className="text-xs text-stone-400 block mb-1">Total Volume Required</span>
               <div className="text-4xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-                {isMetric ? roundedCubicMeters : roundedCubicYards}{' '}
+                <AnimatedPrice value={isMetric ? roundedCubicMeters : roundedCubicYards} prefix="" decimals={1} />{' '}
                 <span className="text-xl font-normal text-emerald-400">
                   {isMetric ? 'Cubic Meters' : 'Cubic Yards'}
                 </span>
@@ -315,10 +316,10 @@ export const MulchCalculator: React.FC<MulchCalculatorProps> = ({ unitSystem, on
                   {isMetric ? '50-Liter Bags' : '2 Cu Ft Bags'}
                 </span>
                 <span className="text-2xl font-bold text-white">
-                  {isMetric ? bags50L : bags2cuFt}
+                  <AnimatedPrice value={isMetric ? bags50L : bags2cuFt} prefix="" decimals={0} />
                 </span>
                 <span className="text-[10px] text-stone-400 block mt-0.5">
-                  bags ({formatCurrency(baggedMaterialCost)})
+                  bags (<AnimatedPrice value={baggedMaterialCost} />)
                 </span>
               </div>
               <div className="bg-stone-800/60 rounded-xl p-3 text-center border border-stone-700">
@@ -326,7 +327,7 @@ export const MulchCalculator: React.FC<MulchCalculatorProps> = ({ unitSystem, on
                   {isMetric ? '60-Liter Bags' : '3 Cu Ft Bags'}
                 </span>
                 <span className="text-2xl font-bold text-white">
-                  {isMetric ? bags60L : bags3cuFt}
+                  <AnimatedPrice value={isMetric ? bags60L : bags3cuFt} prefix="" decimals={0} />
                 </span>
                 <span className="text-[10px] text-stone-400 block mt-0.5">large bags</span>
               </div>
@@ -338,23 +339,23 @@ export const MulchCalculator: React.FC<MulchCalculatorProps> = ({ unitSystem, on
                 <span>
                   Bulk Mulch ({isMetric ? `${roundedCubicMeters} m³` : `${roundedCubicYards} yds`}):
                 </span>
-                <span className="font-semibold text-white">{formatCurrency(bulkMaterialCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={bulkMaterialCost} /></span>
               </div>
               {includeDelivery && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Delivery fee:</span>
-                  <span>{formatCurrency(deliveryFee)}</span>
+                  <span><AnimatedPrice value={deliveryFee} /></span>
                 </div>
               )}
               {includeLabor && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Spreading labor:</span>
-                  <span>{formatCurrency(laborCost)}</span>
+                  <span><AnimatedPrice value={laborCost} /></span>
                 </div>
               )}
               <div className="pt-2 border-t border-stone-700 flex justify-between items-center font-bold text-emerald-400 text-sm">
                 <span>Bulk Installed Total:</span>
-                <span>{formatCurrency(totalBulkInstalled)}</span>
+                <span><AnimatedPrice value={totalBulkInstalled} /></span>
               </div>
             </div>
 

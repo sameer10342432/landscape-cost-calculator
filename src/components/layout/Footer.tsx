@@ -1,6 +1,7 @@
 import React from 'react';
-import { Shovel, ShieldCheck, Mail, MapPin, ExternalLink, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Mail, MapPin, ExternalLink, ArrowRight } from 'lucide-react';
 import { SITE_DOMAIN } from '../../data/seoDatabase';
+import { BrandLogo } from '../common/BrandLogo';
 
 interface FooterProps {
   onNavigate: (path: string) => void;
@@ -10,6 +11,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="bg-stone-900 text-stone-300 pt-16 pb-12 border-t border-stone-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Brand Showcase Header */}
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-10 mb-10 border-b border-stone-800">
+          <button
+            onClick={() => onNavigate('/')}
+            className="text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl"
+            aria-label="Landscape Cost Calculator Home"
+          >
+            <BrandLogo size="lg" isDark={true} />
+          </button>
+          <p className="text-xs sm:text-sm text-stone-400 max-w-md leading-relaxed">
+            Professional calculation engines for backyard remodeling, paver patios, retaining walls, mulch delivery, and contractor budgeting.
+          </p>
+        </div>
+
         {/* Top Disclaimer Banner */}
         <div className="bg-stone-800/80 rounded-2xl p-4 sm:p-5 border border-stone-700/60 mb-12 flex flex-col sm:flex-row items-start sm:items-center gap-3 text-xs sm:text-sm text-stone-300">
           <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5 sm:mt-0" />
@@ -225,8 +240,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
-          <div className="flex items-center gap-2">
-            <Shovel className="w-4 h-4 text-emerald-500" />
+          <div className="flex items-center gap-2.5">
+            <BrandLogo size="sm" isDark={true} showText={false} />
             <span>
               &copy; {new Date().getFullYear()} {SITE_DOMAIN}. All rights reserved.
             </span>

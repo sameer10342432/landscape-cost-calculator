@@ -1,47 +1,96 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#059669" />
-      <stop offset="100%" stop-color="#047857" />
+    <!-- Background Gradient: Rich Botanical Forest to Deep Emerald -->
+    <linearGradient id="bgGrad" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#047857" />
+      <stop offset="50%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#064e3b" />
     </linearGradient>
-    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#d1fae5" />
-      <stop offset="100%" stop-color="#a7f3d0" />
+
+    <!-- Vibrant Leaf Glow -->
+    <linearGradient id="leafGrad" x1="160" y1="120" x2="256" y2="390" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#064e3b" flood-opacity="0.35" />
+
+    <!-- Grid / Measurement Accent Gradient -->
+    <linearGradient id="metricGrad" x1="256" y1="120" x2="380" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadow for Core Mark -->
+    <filter id="markShadow" x="80" y="80" width="352" height="360" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#022c22" flood-opacity="0.45" />
     </filter>
   </defs>
 
-  <!-- Background Rounded Tile -->
-  <rect width="512" height="512" rx="112" ry="112" fill="url(#bgGrad)" />
+  <!-- Squircle Base Tile -->
+  <rect width="512" height="512" rx="116" fill="url(#bgGrad)" />
+  <rect x="4" y="4" width="504" height="504" rx="112" stroke="rgba(255, 255, 255, 0.12)" stroke-width="8" fill="none" />
 
-  <!-- Shovel Graphic centered in 512x512 -->
-  <g transform="translate(106, 106) scale(12.5)" filter="url(#shadow)">
-    <!-- Shovel Blade -->
+  <!-- Core Emblem: Landscaping Contour & Estimation Grid -->
+  <g filter="url(#markShadow)">
+    <!-- Left Wing: Organic Botanical Contour & Growth Curve -->
     <path
-      d="M2 22v-5l5-5 5 5-5 5z"
-      fill="url(#bladeGrad)"
-      stroke="#ffffff"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      d="M256 104 C180 104 128 172 128 252 C128 328 184 384 256 408 C248 340 248 240 256 104 Z"
+      fill="url(#leafGrad)"
     />
-    <!-- Shovel Shaft -->
+
+    <!-- Right Wing: Geometric Stepped Terraces & Blueprint Grid -->
+    <!-- Top terrace -->
     <path
-      d="M9.5 14.5 16 8"
+      d="M268 120 C324 136 368 180 380 236 L310 236 C300 200 286 170 268 148 V120 Z"
+      fill="url(#metricGrad)"
+    />
+    <!-- Middle terrace / contour -->
+    <path
+      d="M268 256 L384 256 C382 296 364 332 336 358 L286 312 C296 296 298 276 268 274 V256 Z"
+      fill="url(#metricGrad)"
+      fill-opacity="0.9"
+    />
+    <!-- Bottom foundation stone / measurement base -->
+    <path
+      d="M268 334 L318 380 C296 396 278 402 268 406 V334 Z"
+      fill="url(#metricGrad)"
+      fill-opacity="0.8"
+    />
+
+    <!-- Central Precision Axis / Ruler Caliper Spine -->
+    <path
+      d="M256 94 V418"
       stroke="#ffffff"
-      stroke-width="2.2"
+      stroke-width="12"
       stroke-linecap="round"
     />
-    <!-- Shovel Handle -->
+
+    <!-- Measurement Calibration Ticks (Accuracy & Estimation) -->
+    <!-- Tick 1 (Top scale) -->
+    <line x1="256" y1="170" x2="284" y2="170" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+    <!-- Tick 2 (Mid major scale) -->
+    <line x1="256" y1="230" x2="296" y2="230" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+    <!-- Tick 3 (Mid minor scale) -->
+    <line x1="256" y1="290" x2="286" y2="290" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+    <!-- Tick 4 (Bottom scale) -->
+    <line x1="256" y1="350" x2="298" y2="350" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+
+    <!-- Center Precision Pivot Node -->
+    <circle cx="256" cy="230" r="10" fill="#047857" stroke="#ffffff" stroke-width="6" />
+
+    <!-- Golden Leaf Vein Curve (Organic Nature Balance) -->
     <path
-      d="m17 2 5 5-.5.5a3.53 3.53 0 0 1-5 0s0 0 0 0a3.53 3.53 0 0 1 0-5L17 2"
-      fill="none"
-      stroke="#ffffff"
-      stroke-width="2.2"
+      d="M248 180 C210 210 178 240 160 280"
+      stroke="#064e3b"
+      stroke-width="7"
       stroke-linecap="round"
-      stroke-linejoin="round"
+      opacity="0.4"
+    />
+    <path
+      d="M248 260 C216 280 190 310 180 340"
+      stroke="#064e3b"
+      stroke-width="7"
+      stroke-linecap="round"
+      opacity="0.4"
     />
   </g>
 </svg>

@@ -8,6 +8,7 @@ import {
   SQ_METERS_TO_SQ_FT,
 } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface PatioCostCalculatorProps {
   unitSystem: UnitSystem;
@@ -259,16 +260,16 @@ export const PatioCostCalculator: React.FC<PatioCostCalculatorProps> = ({
               </span>
             </div>
 
-            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700">
+            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700 animate-result-card">
               <span className="text-xs text-stone-400 block mb-1">Total Estimated Project Cost</span>
               <div className="text-4xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-                {formatCurrency(totalPatioCost)}
+                <AnimatedPrice value={totalPatioCost} />
               </div>
               <div className="text-xs text-emerald-400 mt-2 font-semibold">
-                {formatCurrency(costPerUnit)} per {isMetric ? 'm²' : 'sq ft'} installed
+                <AnimatedPrice value={costPerUnit} decimals={2} /> per {isMetric ? 'm²' : 'sq ft'} installed
               </div>
               <div className="mt-2 text-xs text-stone-300">
-                Range: {formatCurrency(totalPatioCost * 0.88)} – {formatCurrency(totalPatioCost * 1.18)}
+                Range: <AnimatedPrice value={totalPatioCost * 0.88} /> – <AnimatedPrice value={totalPatioCost * 1.18} />
               </div>
             </div>
 
@@ -276,26 +277,26 @@ export const PatioCostCalculator: React.FC<PatioCostCalculatorProps> = ({
             <div className="space-y-2.5 text-xs text-stone-300 border-t border-b border-stone-800 py-3 mb-4">
               <div className="flex justify-between items-center">
                 <span>Surface Material:</span>
-                <span className="font-semibold text-white">{formatCurrency(materialCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={materialCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Installation Labor:</span>
-                <span className="font-semibold text-white">{formatCurrency(laborCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={laborCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Excavation, Grading & Sub-base:</span>
-                <span className="font-semibold text-white">{formatCurrency(excavationPrepCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={excavationPrepCost} /></span>
               </div>
               {includeOldRemoval && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Demolition & Haul Away:</span>
-                  <span>{formatCurrency(oldRemovalCost)}</span>
+                  <span><AnimatedPrice value={oldRemovalCost} /></span>
                 </div>
               )}
               {includeSealant && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Finishing Sealant:</span>
-                  <span>{formatCurrency(sealantCost)}</span>
+                  <span><AnimatedPrice value={sealantCost} /></span>
                 </div>
               )}
             </div>

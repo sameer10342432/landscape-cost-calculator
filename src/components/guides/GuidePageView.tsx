@@ -6,6 +6,7 @@ import { RelatedContent } from '../common/RelatedContent';
 import { LeadGenCard } from '../common/LeadGenCard';
 import { AdPlaceholder } from '../common/AdPlaceholder';
 import { OptimizedImage } from '../common/OptimizedImage';
+import { FaqAccordion } from '../common/FaqAccordion';
 import { PAGE_IMAGES } from '../../data/imageDatabase';
 import { GUIDE_CONTENT } from '../../data/guideContentData';
 import { Calculator, ArrowRight, HelpCircle, CheckCircle, Info, Sparkles } from 'lucide-react';
@@ -201,18 +202,7 @@ export const GuidePageView: React.FC<GuidePageViewProps> = ({ metadata, onNaviga
               Frequently Asked Questions
             </h2>
           </div>
-          <div className="space-y-4">
-            {metadata.faqs.map((faq, idx) => (
-              <div key={idx} className="bg-stone-50 rounded-2xl p-5 border border-stone-200">
-                <h3 className="font-heading font-bold text-base text-stone-900 mb-2">
-                  {faq.question}
-                </h3>
-                <p className="text-stone-600 text-sm leading-relaxed">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
-          </div>
+          <FaqAccordion faqs={metadata.faqs} />
         </section>
       )}
 

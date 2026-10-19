@@ -9,6 +9,7 @@ import {
   CU_METERS_TO_CU_YARDS,
 } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface RetainingWallCalculatorProps {
   unitSystem: UnitSystem;
@@ -261,16 +262,16 @@ export const RetainingWallCalculator: React.FC<RetainingWallCalculatorProps> = (
               </span>
             </div>
 
-            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700">
+            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700 animate-result-card">
               <span className="text-xs text-stone-400 block mb-1">Total Estimated Installed Cost</span>
               <div className="text-4xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-                {formatCurrency(totalCost)}
+                <AnimatedPrice value={totalCost} />
               </div>
               <div className="text-xs text-emerald-400 mt-2 font-semibold">
-                {formatCurrency(costPerFaceUnit)} per visible {isMetric ? 'm² face' : 'face sq ft'}
+                <AnimatedPrice value={costPerFaceUnit} decimals={2} /> per visible {isMetric ? 'm² face' : 'face sq ft'}
               </div>
               <div className="mt-2 text-xs text-stone-300">
-                Range: {formatCurrency(totalCost * 0.88)} – {formatCurrency(totalCost * 1.2)}
+                Range: <AnimatedPrice value={totalCost * 0.88} /> – <AnimatedPrice value={totalCost * 1.2} />
               </div>
             </div>
 
@@ -278,26 +279,26 @@ export const RetainingWallCalculator: React.FC<RetainingWallCalculatorProps> = (
             <div className="space-y-2.5 text-xs text-stone-300 border-t border-b border-stone-800 py-3 mb-4">
               <div className="flex justify-between items-center">
                 <span>Wall Units & Cap Stones:</span>
-                <span className="font-semibold text-white">{formatCurrency(blockUnitsCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={blockUnitsCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Contractor Construction Labor:</span>
-                <span className="font-semibold text-white">{formatCurrency(wallLaborCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={wallLaborCost} /></span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Trench Excavation & Leveling Base:</span>
-                <span className="font-semibold text-white">{formatCurrency(baseTrenchCost)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={baseTrenchCost} /></span>
               </div>
               {includeBackfillGravel && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Backfill Drainage Gravel:</span>
-                  <span>{formatCurrency(drainageGravelCost)}</span>
+                  <span><AnimatedPrice value={drainageGravelCost} /></span>
                 </div>
               )}
               {includeDrainagePipe && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Drain Tile Pipe & Sock:</span>
-                  <span>{formatCurrency(drainPipeCost)}</span>
+                  <span><AnimatedPrice value={drainPipeCost} /></span>
                 </div>
               )}
             </div>

@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="110" viewBox="0 0 520 110" fill="none">
+  <defs>
+    <!-- Background Gradient for Icon Tile -->
+    <linearGradient id="logoBgGrad" x1="10" y1="10" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#047857" />
+      <stop offset="50%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+
+    <!-- Leaf Glow Gradient -->
+    <linearGradient id="logoLeafGrad" x1="30" y1="20" x2="55" y2="85" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Grid / Measurement Accent -->
+    <linearGradient id="logoMetricGrad" x1="55" y1="25" x2="85" y2="85" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+
+    <filter id="logoTileShadow" x="0" y="4" width="112" height="112" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#064e3b" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Left: Brand Emblem Mark -->
+  <g filter="url(#logoTileShadow)">
+    <rect x="6" y="6" width="96" height="96" rx="24" fill="url(#logoBgGrad)" />
+    <rect x="7" y="7" width="94" height="94" rx="23" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2" fill="none" />
+
+    <!-- Scaled Vector Icon (0.19 scale, offset to center at 54, 54) -->
+    <g transform="translate(5.4, 5.4) scale(0.19)">
+      <!-- Left Wing: Organic Botanical Leaf Contour -->
+      <path
+        d="M256 104 C180 104 128 172 128 252 C128 328 184 384 256 408 C248 340 248 240 256 104 Z"
+        fill="url(#logoLeafGrad)"
+      />
+
+      <!-- Right Wing: Geometric Stepped Terraces -->
+      <path
+        d="M268 120 C324 136 368 180 380 236 L310 236 C300 200 286 170 268 148 V120 Z"
+        fill="url(#logoMetricGrad)"
+      />
+      <path
+        d="M268 256 L384 256 C382 296 364 332 336 358 L286 312 C296 296 298 276 268 274 V256 Z"
+        fill="url(#logoMetricGrad)"
+        fill-opacity="0.9"
+      />
+      <path
+        d="M268 334 L318 380 C296 396 278 402 268 406 V334 Z"
+        fill="url(#logoMetricGrad)"
+        fill-opacity="0.8"
+      />
+
+      <!-- Precision Axis Spine -->
+      <path
+        d="M256 94 V418"
+        stroke="#ffffff"
+        stroke-width="12"
+        stroke-linecap="round"
+      />
+
+      <!-- Measurement Calibration Ticks -->
+      <line x1="256" y1="170" x2="284" y2="170" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+      <line x1="256" y1="230" x2="296" y2="230" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+      <line x1="256" y1="290" x2="286" y2="290" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+      <line x1="256" y1="350" x2="298" y2="350" stroke="#ffffff" stroke-width="9" stroke-linecap="round" />
+
+      <!-- Pivot Node -->
+      <circle cx="256" cy="230" r="10" fill="#047857" stroke="#ffffff" stroke-width="6" />
+    </g>
+  </g>
+
+  <!-- Right: Professional Brand Wordmark & Domain -->
+  <g transform="translate(120, 0)">
+    <!-- Primary Title Line 1: Landscape Cost -->
+    <text
+      x="0"
+      y="48"
+      font-family="'Plus Jakarta Sans', system-ui, -apple-system, 'Inter', sans-serif"
+      font-size="28"
+      font-weight="800"
+      fill="#1c1917"
+      letter-spacing="-0.03em"
+    >
+      Landscape Cost
+    </text>
+
+    <!-- Line 2: Calculator badge / highlighted wordmark -->
+    <text
+      x="0"
+      y="76"
+      font-family="'Plus Jakarta Sans', system-ui, -apple-system, 'Inter', sans-serif"
+      font-size="22"
+      font-weight="700"
+      fill="#047857"
+      letter-spacing="-0.02em"
+    >
+      Calculator
+    </text>
+
+    <!-- Subtitle: Domain + Product Badge -->
+    <text
+      x="0"
+      y="96"
+      font-family="'Inter', system-ui, -apple-system, sans-serif"
+      font-size="11"
+      font-weight="600"
+      fill="#059669"
+      letter-spacing="0.12em"
+    >
+      LANDSCAPECOSTCALCULATOR.ONLINE
+    </text>
+  </g>
+</svg>

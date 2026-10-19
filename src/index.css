@@ -1,11 +1,21 @@
 @import "tailwindcss";
 
+/* Animation & Design Tokens */
 :root {
+  /* Motion Durations */
+  --duration-fast: 180ms;    /* 150-200ms: micro-interactions, toggles, icon shifts */
+  --duration-card: 260ms;    /* 200-300ms: button & card hover states */
+  --duration-reveal: 520ms;  /* 400-650ms: scroll reveals & content sections */
+  --duration-hero: 750ms;    /* 600-800ms: large hero image entrances */
+
+  /* Easings */
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-  --duration-fast: 200ms;
-  --duration-med: 300ms;
-  --duration-slow: 600ms;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Brand Accents */
+  --brand-emerald-glow: rgba(16, 185, 129, 0.35);
+  --brand-emerald-subtle: rgba(5, 150, 105, 0.12);
 }
 
 @layer base {
@@ -18,11 +28,44 @@
   }
 }
 
-/* Keyframes */
-@keyframes heroFadeUp {
+/* Keyframes: Coordinated Fast Hero Entrance Sequence (<1s total) */
+@keyframes heroBadgeFadeUp {
   0% {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroH1FadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroDescFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroCtaFadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
   100% {
     opacity: 1;
@@ -33,7 +76,7 @@
 @keyframes heroImageReveal {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.985);
+    transform: translateY(16px) scale(0.985);
   }
   100% {
     opacity: 1;
@@ -44,7 +87,7 @@
 @keyframes logoFade {
   0% {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(4px);
   }
   100% {
     opacity: 1;
@@ -76,8 +119,22 @@
 
 @keyframes cardResultHighlight {
   0% {
+    opacity: 0.9;
+    transform: scale(0.995);
+  }
+  50% {
+    transform: scale(1.005);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pageFadeIn {
+  0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(6px);
   }
   100% {
     opacity: 1;
@@ -85,95 +142,139 @@
   }
 }
 
-@keyframes pageFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Animation Classes */
+/* Staggered Hero Sequence Classes */
 .animate-hero-badge {
-  animation: heroFadeUp 450ms var(--ease-premium) 0ms both;
+  animation: heroBadgeFadeUp 360ms var(--ease-premium) 0ms both;
 }
 
 .animate-hero-h1 {
-  animation: heroFadeUp 600ms var(--ease-premium) 100ms both;
+  animation: heroH1FadeUp 480ms var(--ease-premium) 80ms both;
 }
 
 .animate-hero-desc {
-  animation: heroFadeUp 450ms var(--ease-premium) 180ms both;
+  animation: heroDescFadeUp 420ms var(--ease-premium) 160ms both;
 }
 
 .animate-hero-cta {
-  animation: heroFadeUp 400ms var(--ease-premium) 250ms both;
+  animation: heroCtaFadeUp 380ms var(--ease-premium) 240ms both;
 }
 
 .animate-hero-image {
-  animation: heroImageReveal 800ms var(--ease-premium) 300ms both;
+  animation: heroImageReveal var(--duration-hero) var(--ease-premium) 300ms both;
 }
 
 .animate-logo-icon {
-  animation: logoFade 450ms var(--ease-premium) 0ms both;
+  animation: logoFade 350ms var(--ease-premium) 0ms both;
 }
 
 .animate-logo-text {
-  animation: logoFade 450ms var(--ease-premium) 60ms both;
+  animation: logoFade 350ms var(--ease-premium) 50ms both;
 }
 
 .animate-logo-sub {
-  animation: logoFade 450ms var(--ease-premium) 120ms both;
+  animation: logoFade 350ms var(--ease-premium) 100ms both;
 }
 
 .animate-dropdown {
-  animation: dropdownFadeIn 200ms var(--ease-premium) both;
+  animation: dropdownFadeIn var(--duration-fast) var(--ease-premium) both;
 }
 
 .animate-mobile-drawer {
-  animation: mobileDrawerSlide 240ms var(--ease-premium) both;
+  animation: mobileDrawerSlide 220ms var(--ease-premium) both;
 }
 
 .animate-page-enter {
-  animation: pageFadeIn 200ms var(--ease-premium) both;
+  animation: pageFadeIn 220ms var(--ease-premium) both;
 }
 
 .animate-result-card {
-  animation: cardResultHighlight 400ms var(--ease-premium) both;
+  animation: cardResultHighlight 320ms var(--ease-premium) both;
 }
 
 /* Micro-interaction Utility Classes */
 .hover-lift {
-  transition: transform 240ms var(--ease-premium), box-shadow 240ms var(--ease-premium), border-color 240ms var(--ease-premium);
+  transition: transform var(--duration-card) var(--ease-premium),
+              box-shadow var(--duration-card) var(--ease-premium),
+              border-color var(--duration-card) var(--ease-premium),
+              background-color var(--duration-card) var(--ease-premium);
 }
 .hover-lift:hover {
   transform: translateY(-3px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
 }
 .hover-lift:active {
   transform: scale(0.985);
 }
 
 .hover-lift-sm {
-  transition: transform 180ms var(--ease-premium), box-shadow 180ms var(--ease-premium), background-color 180ms var(--ease-premium);
+  transition: transform var(--duration-fast) var(--ease-premium),
+              box-shadow var(--duration-fast) var(--ease-premium),
+              filter var(--duration-fast) var(--ease-premium),
+              background-color var(--duration-fast) var(--ease-premium);
 }
 .hover-lift-sm:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  filter: brightness(1.03);
 }
 .hover-lift-sm:active {
   transform: scale(0.98);
 }
 
-.hover-image-zoom {
-  transition: transform 600ms var(--ease-premium);
+/* Card Interactive State: Border toward brand green, subtle lift */
+.card-interactive {
+  transition: transform var(--duration-card) var(--ease-premium),
+              box-shadow var(--duration-card) var(--ease-premium),
+              border-color var(--duration-card) var(--ease-premium);
 }
-.hover-image-zoom:hover {
-  transform: scale(1.018);
+.card-interactive:hover {
+  transform: translateY(-3px);
+  border-color: rgba(5, 150, 105, 0.45);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.07), 0 4px 8px -4px rgba(0, 0, 0, 0.03);
+}
+.card-interactive:active {
+  transform: scale(0.99);
 }
 
-/* Input & Select Focus System */
-input, select, textarea {
-  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+/* Landscaping Image Animations */
+.hover-image-zoom {
+  transition: transform 550ms var(--ease-premium);
+  will-change: transform;
+}
+.hover-image-zoom:hover {
+  transform: scale(1.025);
+}
+
+/* Input, Select, & Checkbox Focus Micro-interactions */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select,
+textarea {
+  transition: border-color var(--duration-fast) ease,
+              box-shadow var(--duration-fast) ease,
+              background-color var(--duration-fast) ease;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+/* Checkbox smooth interaction */
+input[type="checkbox"] {
+  transition: background-color var(--duration-fast) ease,
+              border-color var(--duration-fast) ease,
+              transform var(--duration-fast) ease;
+  cursor: pointer;
+}
+input[type="checkbox"]:hover {
+  border-color: #059669;
+}
+input[type="checkbox"]:active {
+  transform: scale(0.92);
 }
 
 /* Print Styles */
@@ -195,19 +296,42 @@ input, select, textarea {
   }
 }
 
-/* Accessibility: Prefers Reduced Motion */
+/* Accessibility: Full Prefers-Reduced-Motion Support */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
   .hover-lift:hover,
   .hover-lift-sm:hover,
+  .card-interactive:hover,
   .hover-image-zoom:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+  .hover-lift:active,
+  .hover-lift-sm:active,
+  .card-interactive:active {
+    transform: none !important;
+  }
+  .animate-hero-badge,
+  .animate-hero-h1,
+  .animate-hero-desc,
+  .animate-hero-cta,
+  .animate-hero-image,
+  .animate-logo-icon,
+  .animate-logo-text,
+  .animate-logo-sub,
+  .animate-dropdown,
+  .animate-mobile-drawer,
+  .animate-page-enter,
+  .animate-result-card {
+    animation: none !important;
+    opacity: 1 !important;
     transform: none !important;
   }
 }

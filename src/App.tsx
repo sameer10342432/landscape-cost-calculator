@@ -20,7 +20,8 @@ import { AboutPage } from './components/pages/AboutPage';
 import { ContactPage } from './components/pages/ContactPage';
 import { LegalPage } from './components/pages/LegalPage';
 import { SitemapPage } from './components/pages/SitemapPage';
-import { Shovel, Home, ArrowLeft } from 'lucide-react';
+import { Home, ArrowLeft } from 'lucide-react';
+import { BrandLogo } from './components/common/BrandLogo';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -189,8 +190,8 @@ export default function App() {
     // 6. 404 Fallback Page
     return (
       <div className="max-w-3xl mx-auto py-20 px-4 text-center space-y-6">
-        <div className="w-16 h-16 rounded-3xl bg-emerald-100 text-emerald-800 flex items-center justify-center mx-auto">
-          <Shovel className="w-8 h-8" />
+        <div className="flex items-center justify-center mx-auto">
+          <BrandLogo size="lg" showText={false} />
         </div>
         <h1 className="text-4xl font-heading font-extrabold text-stone-900">
           Page Not Found (404)

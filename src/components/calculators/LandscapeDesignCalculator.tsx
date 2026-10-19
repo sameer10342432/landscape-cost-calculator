@@ -7,6 +7,7 @@ import {
   SQ_METERS_TO_SQ_FT,
 } from '../../data/pricingData';
 import { UnitSystem } from '../../types';
+import { AnimatedPrice } from '../common/AnimatedPrice';
 
 interface LandscapeDesignCalculatorProps {
   unitSystem: UnitSystem;
@@ -243,31 +244,31 @@ export const LandscapeDesignCalculator: React.FC<LandscapeDesignCalculatorProps>
               </span>
             </div>
 
-            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700">
+            <div className="my-5 bg-stone-800/80 rounded-2xl p-5 text-center border border-stone-700 animate-result-card">
               <span className="text-xs text-stone-400 block mb-1">Estimated Design Package Fee</span>
               <div className="text-4xl sm:text-5xl font-heading font-extrabold text-white tracking-tight">
-                {formatCurrency(totalDesignFee)}
+                <AnimatedPrice value={totalDesignFee} />
               </div>
               <div className="text-xs text-stone-300 mt-2 font-medium">
-                Typical range: {formatCurrency(totalDesignFee * 0.85)} – {formatCurrency(totalDesignFee * 1.2)}
+                Typical range: <AnimatedPrice value={totalDesignFee * 0.85} /> – <AnimatedPrice value={totalDesignFee * 1.2} />
               </div>
             </div>
 
             <div className="space-y-2.5 text-xs text-stone-300 border-t border-b border-stone-800 py-3 mb-4">
               <div className="flex justify-between items-center">
                 <span>{selectedTier.name}:</span>
-                <span className="font-semibold text-white">{formatCurrency(baseDesignFee)}</span>
+                <span className="font-semibold text-white"><AnimatedPrice value={baseDesignFee} /></span>
               </div>
               {includeSiteConsultation && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>Site Consultation & Survey:</span>
-                  <span>{formatCurrency(consultationFee)}</span>
+                  <span><AnimatedPrice value={consultationFee} /></span>
                 </div>
               )}
               {include3dRendering && designTier !== 'luxury3d' && (
                 <div className="flex justify-between items-center text-stone-400">
                   <span>3D Colored Renderings:</span>
-                  <span>{formatCurrency(renderings3dAddon)}</span>
+                  <span><AnimatedPrice value={renderings3dAddon} /></span>
                 </div>
               )}
               {includePermitPlan && (

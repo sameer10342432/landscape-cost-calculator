@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Shovel, Menu, X, ChevronDown, Calculator, BookOpen, FileSpreadsheet, Ruler } from 'lucide-react';
+import { Menu, X, ChevronDown, Calculator, BookOpen, FileSpreadsheet, Ruler } from 'lucide-react';
 import { UnitSystem } from '../../types';
+import { BrandLogo } from '../common/BrandLogo';
 
 interface NavbarProps {
   currentPath: string;
@@ -59,19 +60,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Brand Logo */}
           <button
             onClick={() => handleNav('/')}
-            className="flex items-center gap-2.5 text-left group focus:outline-none cursor-pointer"
+            className="flex items-center text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 rounded-xl cursor-pointer"
+            aria-label="Landscape Cost Calculator Home"
           >
-            <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center shadow-sm group-hover:bg-emerald-800 transition-all duration-200 animate-logo-icon">
-              <Shovel className="w-5 h-5 text-emerald-100 transition-transform duration-200 group-hover:scale-105" />
-            </div>
-            <div>
-              <span className="font-heading font-extrabold text-stone-900 text-base sm:text-lg tracking-tight block leading-tight animate-logo-text">
-                Landscape Cost Calculator
-              </span>
-              <span className="text-[11px] font-medium text-emerald-700 block tracking-wider uppercase animate-logo-sub">
-                landscapecostcalculator.online
-              </span>
-            </div>
+            <BrandLogo size="md" />
           </button>
 
           {/* Desktop Nav (>=1024px) */}
