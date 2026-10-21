@@ -22,6 +22,7 @@ import { LegalPage } from './components/pages/LegalPage';
 import { SitemapPage } from './components/pages/SitemapPage';
 import { Home, ArrowLeft } from 'lucide-react';
 import { BrandLogo } from './components/common/BrandLogo';
+import { initAnalytics, trackPageView } from './utils/analytics';
 
 export default function App() {
   const [currentPath, setCurrentPath] = useState<string>(() => {
@@ -36,6 +37,17 @@ export default function App() {
   });
 
   const [unitSystem, setUnitSystem] = useState<UnitSystem>('us');
+
+  // Initialize analytics once
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
+  // Track virtual pageviews on route changes
+  useEffect(() => {
+    const meta = SEO_PAGES[currentPath] || SEO_PAGES['/'];
+    trackPageView(currentPath, meta?.metaTitle);
+  }, [currentPath]);
 
   // Handle browser back/forward buttons
   useEffect(() => {

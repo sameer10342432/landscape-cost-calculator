@@ -160,4 +160,106 @@ export const PAGE_IMAGES: Record<string, PageImageConfig> = {
     width: 1774,
     height: 887,
   },
+
+  // Secondary Main Calculator Intent Pages
+  '/landscape-cost-calculator/': {
+    src: '/images/landscaping/landscaping-cost-calculator.webp',
+    alt: 'Complete property landscaping plan and outdoor living cost estimation',
+    width: 1536,
+    height: 1024,
+  },
+  '/landscaping-calculator/': {
+    src: '/images/landscaping/landscaping-cost-calculator.webp',
+    alt: 'All-in-one landscaping calculator for lawn, mulch, and pavers',
+    width: 1536,
+    height: 1024,
+  },
+  '/landscaping-pricing-calculator/': {
+    src: '/images/landscaping/landscaping-estimate.webp',
+    alt: 'Contractor hourly pricing, equipment markup, and landscaping profit margins',
+    width: 1774,
+    height: 887,
+  },
+  '/landscaping-cost-estimator/': {
+    src: '/images/landscaping/landscaping-cost-calculator.webp',
+    alt: 'Ballpark low and high cost ranges for home landscaping projects',
+    width: 1536,
+    height: 1024,
+  },
+  '/landscaping-estimate-calculator/': {
+    src: '/images/landscaping/landscaping-estimate.webp',
+    alt: 'Structured itemized landscaping estimate worksheet and quote builder',
+    width: 1774,
+    height: 887,
+  },
+  '/landscape-project-estimator/': {
+    src: '/images/landscaping/landscape-design-cost.webp',
+    alt: 'Multi-feature residential landscape architectural planning and estimate',
+    width: 1774,
+    height: 887,
+  },
+
+  // Additional Topic Guides
+  '/guides/landscape-project-cost-factors/': {
+    src: '/images/landscaping/backyard-landscaping-cost.webp',
+    alt: 'Comprehensive breakdown of yard access, soil grading, and labor factors in landscaping',
+    width: 1536,
+    height: 1024,
+  },
+  '/guides/lawn-installation-cost/': {
+    src: '/images/landscaping/landscaping-cost-per-square-foot.webp',
+    alt: 'Lush green sod lawn installation with manicured landscape borders',
+    width: 1774,
+    height: 887,
+  },
+  '/guides/rock-landscaping-cost/': {
+    src: '/images/landscaping/retaining-wall-cost.webp',
+    alt: 'Decorative river rock landscape beds and natural stone terrace features',
+    width: 1774,
+    height: 887,
+  },
+  '/guides/gravel-landscaping-cost/': {
+    src: '/images/landscaping/paver-calculator.webp',
+    alt: 'Crushed gravel driveway and walkway base material installation',
+    width: 1536,
+    height: 1024,
+  },
+
+  // Utility & Company Pages
+  '/about/': {
+    src: '/images/landscaping/landscaping-cost-calculator.webp',
+    alt: 'About Landscape Cost Calculator, engineering formulas and estimation standards',
+    width: 1536,
+    height: 1024,
+  },
+  '/contact/': {
+    src: '/images/landscaping/landscaping-cost-calculator.webp',
+    alt: 'Contact Landscape Cost Calculator editorial and calculation engineering team',
+    width: 1536,
+    height: 1024,
+  },
+  '/privacy-policy/': {
+    src: '/images/landscaping/landscaping-estimate.webp',
+    alt: 'Privacy policy and user data security standards',
+    width: 1774,
+    height: 887,
+  },
+  '/terms/': {
+    src: '/images/landscaping/landscaping-estimate.webp',
+    alt: 'Terms of service and software calculation license agreement',
+    width: 1774,
+    height: 887,
+  },
+  '/disclaimer/': {
+    src: '/images/landscaping/landscaping-estimate.webp',
+    alt: 'Estimation disclaimer and local building contractor verification notices',
+    width: 1774,
+    height: 887,
+  },
+  '/sitemap/': {
+    src: '/images/landscaping/landscaping-cost-calculator.webp',
+    alt: 'Complete HTML sitemap directory of all landscaping estimation tools',
+    width: 1536,
+    height: 1024,
+  },
 };
