@@ -13,6 +13,7 @@ import { RetainingWallCalculator } from './components/calculators/RetainingWallC
 import { TreePlantingCalculator } from './components/calculators/TreePlantingCalculator';
 import { LandscapeDesignCalculator } from './components/calculators/LandscapeDesignCalculator';
 import { SquareFootCostCalculator } from './components/calculators/SquareFootCostCalculator';
+import { CombinedProjectEstimator } from './components/calculators/CombinedProjectEstimator';
 import { EstimateTemplateView } from './components/estimate/EstimateTemplateView';
 import { EstimateHubPage } from './components/pages/EstimateHubPage';
 import { GuidePageView } from './components/guides/GuidePageView';
@@ -140,14 +141,22 @@ export default function App() {
       );
     }
 
+    // Dedicated Combined Multi-Feature Project Estimator & Planning Suite
+    if (currentPath === '/landscape-project-estimator/') {
+      return (
+        <CalculatorPageWrapper metadata={metadata} unitSystem={unitSystem} onNavigate={navigate}>
+          <CombinedProjectEstimator unitSystem={unitSystem} onNavigate={navigate} />
+        </CalculatorPageWrapper>
+      );
+    }
+
     // Additional main SEO landing pages that use the primary calculator with dedicated intent & metadata
     if (
       currentPath === '/landscape-cost-calculator/' ||
       currentPath === '/landscaping-calculator/' ||
       currentPath === '/landscaping-pricing-calculator/' ||
       currentPath === '/landscaping-cost-estimator/' ||
-      currentPath === '/landscaping-estimate-calculator/' ||
-      currentPath === '/landscape-project-estimator/'
+      currentPath === '/landscaping-estimate-calculator/'
     ) {
       return (
         <CalculatorPageWrapper metadata={metadata} unitSystem={unitSystem} onNavigate={navigate}>

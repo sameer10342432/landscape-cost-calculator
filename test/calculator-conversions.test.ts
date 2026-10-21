@@ -34,7 +34,13 @@ import {
   TREE_FEES,
   DESIGN_TIERS,
   SQFT_TIERS,
+  getRegionFromZip,
 } from '../src/data/pricingData';
+import {
+  calculateComponent,
+  calculateCombinedProject,
+} from '../src/utils/projectCalculationEngine';
+import { ProjectComponentItem, ProjectExtraCosts } from '../src/types';
 
 let passed = 0;
 let failed = 0;
@@ -187,6 +193,139 @@ assert(Object.keys(TREE_SIZES).length >= 4, 'TREE_SIZES contains nursery contain
 assert(Object.keys(DESIGN_TIERS).length >= 3, 'DESIGN_TIERS contains 2D, 3D, and luxury tiers');
 assert(SQFT_TIERS.length === 3, 'SQFT_TIERS contains Tier 1, Tier 2, and Tier 3');
 
+// ---------------------------------------------------------------------
+// TEST GROUP 6: ZIP Code Regional Labor Multipliers
+// ---------------------------------------------------------------------
+console.log('\n--- Group 6: ZIP Code Regional Labor Multipliers ---');
+
+const zipNY = getRegionFromZip('10001');
+assert(zipNY.matched === true, 'Valid 5-digit NY ZIP 10001 matches a region');
+assert(zipNY.key === 'northeast', 'ZIP 10001 maps to Northeast regional model');
+assertClose(zipNY.multiplier, 1.18, 0.01, 'Northeast regional labor multiplier equals 1.18x');
+
+const zipCA = getRegionFromZip('90210');
+assert(zipCA.matched === true, 'Valid 5-digit CA ZIP 90210 matches a region');
+assert(zipCA.key === 'westCoast', 'ZIP 90210 maps to West Coast model');
+assertClose(zipCA.multiplier, 1.25, 0.01, 'West Coast regional labor multiplier equals 1.25x');
+
+const zipShort = getRegionFromZip('123');
+assert(zipShort.matched === false, 'Short incomplete ZIP safely falls back to national default');
+assert(zipShort.multiplier === 1.0, 'Incomplete ZIP uses 1.0x national rate');
+
+// ---------------------------------------------------------------------
+// TEST GROUP 7: Combined Project Estimator & Shopping List Aggregation
+// ---------------------------------------------------------------------
+console.log('\n--- Group 7: Combined Multi-Component Estimator & Shopping List ---');
+
+// Define 3 components: Lawn (400 sq ft), Mulch (100 sq ft), Paver Patio (200 sq ft)
+const lawnComp: ProjectComponentItem = {
+  id: 'test-lawn-1',
+  type: 'lawn',
+  title: 'Front Lawn',
+  length: 20,
+  width: 20, // 400 sq ft
+  selectedOption: 'bluegrass',
+  wasteFactorPercent: 5,
+  includeLabor: true,
+  calculatedSqFt: 0,
+  displayArea: 0,
+  materialCost: 0,
+  laborCost: 0,
+  laborHours: 0,
+  subtotal: 0,
+  materials: [],
+};
+
+const mulchComp: ProjectComponentItem = {
+  id: 'test-mulch-1',
+  type: 'mulch',
+  title: 'Flower Bed Mulch',
+  length: 20,
+  width: 5, // 100 sq ft
+  depth: 3, // 3"
+  selectedOption: 'hardwood',
+  wasteFactorPercent: 10,
+  includeLabor: true,
+  calculatedSqFt: 0,
+  displayArea: 0,
+  materialCost: 0,
+  laborCost: 0,
+  laborHours: 0,
+  subtotal: 0,
+  materials: [],
+};
+
+const paverComp: ProjectComponentItem = {
+  id: 'test-paver-1',
+  type: 'paver',
+  title: 'Walkway Pavers',
+  length: 20,
+  width: 10, // 200 sq ft
+  selectedOption: '4x8',
+  wasteFactorPercent: 10,
+  includeLabor: true,
+  calculatedSqFt: 0,
+  displayArea: 0,
+  materialCost: 0,
+  laborCost: 0,
+  laborHours: 0,
+  subtotal: 0,
+  materials: [],
+};
+
+const calcLawn = calculateComponent(lawnComp, 'us', 1.0);
+const calcMulch = calculateComponent(mulchComp, 'us', 1.0);
+const calcPaver = calculateComponent(paverComp, 'us', 1.0);
+
+assert(calcLawn.calculatedSqFt === 400, 'Calculated lawn square footage is 400 sq ft');
+assert(calcLawn.materialCost > 0, 'Lawn component computes positive material cost');
+assert(calcLawn.laborCost > 0, 'Lawn component computes positive labor cost');
+assert(calcLawn.materials.length > 0, 'Lawn component outputs material itemization for shopping list');
+
+assert(calcMulch.calculatedSqFt === 100, 'Calculated mulch area is 100 sq ft');
+assert(calcMulch.materialCost > 0, 'Mulch component computes positive material cost');
+
+assert(calcPaver.calculatedSqFt === 200, 'Calculated paver area is 200 sq ft');
+assert(calcPaver.materials.some((m) => m.name.includes('Paver Units')), 'Paver outputs paver units');
+assert(calcPaver.materials.some((m) => m.name.includes('Road Base')), 'Paver outputs crushed stone road base');
+
+// Combined Project Calculation
+const extraCosts: ProjectExtraCosts = {
+  siteExcavation: true,
+  excavationRatePerSqFt: 1.25,
+  deliveryFee: 120,
+  debrisDisposal: 250,
+  equipmentRental: 0,
+  taxPercent: 6.0,
+  permitFee: 50,
+};
+
+const combined = calculateCombinedProject([calcLawn, calcMulch, calcPaver], extraCosts, 1.0);
+
+assert(combined.totalMaterials > 0, 'Combined project computes positive total materials');
+assert(combined.totalLabor > 0, 'Combined project computes positive total labor');
+assert(combined.totalAreaSqFt === 700, 'Combined project total area is 400 + 100 + 200 = 700 sq ft');
+assert(combined.totalCombinedCost > combined.totalMaterials + combined.totalLabor, 'Total cost includes extras and tax');
+assert(combined.lowEstimate < combined.typicalEstimate, 'Low estimate is lower than typical benchmark');
+assert(combined.highEstimate > combined.typicalEstimate, 'High estimate is higher than typical benchmark');
+
+// DIY vs Pro Comparison
+assert(combined.diyComparison.proTotal === combined.totalCombinedCost, 'Pro total matches project combined total');
+assert(combined.diyComparison.diyTotal > 0, 'DIY total computes valid positive expense');
+assert(combined.diyComparison.potentialSavings > 0, 'DIY demonstrates positive potential cost savings');
+assert(combined.diyComparison.estimatedDiyHours > 0, 'DIY outputs estimated homeowner sweat equity hours');
+
+// Shopping List Aggregation
+assert(combined.consolidatedShoppingList.length >= 4, 'Consolidated shopping list aggregates at least 4 material categories');
+assert(
+  combined.consolidatedShoppingList.some((m) => m.category === 'turf'),
+  'Shopping list contains turf category'
+);
+assert(
+  combined.consolidatedShoppingList.some((m) => m.category === 'aggregate'),
+  'Shopping list contains aggregate category'
+);
+
 console.log('\n======================================================');
 console.log(`TEST RESULTS: ${passed} PASSED, ${failed} FAILED`);
 console.log('======================================================\n');
@@ -196,3 +335,4 @@ if (failed > 0) {
 } else {
   process.exit(0);
 }
+

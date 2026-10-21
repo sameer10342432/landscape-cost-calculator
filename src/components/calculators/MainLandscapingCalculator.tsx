@@ -324,6 +324,16 @@ Actual contractor bids will vary based on access, terrain, soil, and local suppl
         </div>
 
         <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('/landscape-project-estimator/')}
+              className="px-3 py-2 text-xs font-semibold rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+              title="Open Combined Multi-Feature Project Estimator"
+            >
+              <Layers className="w-4 h-4 text-emerald-300" />
+              <span>Multi-Zone Estimator</span>
+            </button>
+          )}
           <button
             onClick={() => setShowContractorMode(!showContractorMode)}
             className={`px-3 py-2 text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-colors cursor-pointer ${

@@ -34,6 +34,7 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem, onNavigate }) =>
   const metadata = SEO_PAGES['/'];
 
   const popularCalculators = [
+    { name: 'Combined Project Estimator', desc: 'Combine multiple zones: patio, lawn, retaining wall & mulch.', path: '/landscape-project-estimator/', icon: <Calculator className="w-5 h-5 text-emerald-600" /> },
     { name: 'Mulch Calculator', desc: 'Calculate cubic yards and bags for flower beds & trees.', path: '/mulch-calculator/', icon: <Shovel className="w-5 h-5 text-emerald-600" /> },
     { name: 'Paver Calculator', desc: 'Calculate pavers, bedding sand & road base for patios.', path: '/paver-calculator/', icon: <Layers className="w-5 h-5 text-emerald-600" /> },
     { name: 'Patio Cost Calculator', desc: 'Estimate concrete, stamped & paver patio installations.', path: '/patio-cost-calculator/', icon: <Ruler className="w-5 h-5 text-emerald-600" /> },
@@ -119,8 +120,35 @@ export const HomePage: React.FC<HomePageProps> = ({ unitSystem, onNavigate }) =>
         </div>
       </section>
 
-      {/* 2. Main Landscaping Cost Calculator */}
+      {/* 2. Main Landscaping Cost Calculator & Combined Estimator Callout */}
       <section id="main-calculator" className="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 bg-linear-to-r from-emerald-950 via-emerald-900 to-stone-900 text-white rounded-3xl p-5 sm:p-7 shadow-lg border border-emerald-700/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5 border border-emerald-400/20">
+              <Calculator className="w-6 h-6" />
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-emerald-300 text-[11px] font-bold uppercase tracking-wider mb-1">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Feature Upgrade &bull; Multi-Zone Estimator</span>
+              </div>
+              <h2 className="font-heading font-extrabold text-lg sm:text-2xl text-white">
+                Planning Multiple Landscaping Zones Together?
+              </h2>
+              <p className="text-xs sm:text-sm text-emerald-100/90 mt-1 max-w-2xl leading-relaxed">
+                Combine lawn sod, paver patios, retaining walls, mulch, shrubs, and trees in our <strong>Combined Project Estimator</strong>. Includes a consolidated material shopping list, budget variance tracker, and DIY vs Pro cost comparison.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => onNavigate('/landscape-project-estimator/')}
+            className="bg-white hover:bg-emerald-50 text-emerald-950 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-xs hover-lift-sm transition-all flex items-center gap-2 shrink-0 cursor-pointer group"
+          >
+            <span>Open Combined Estimator Suite</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+          </button>
+        </div>
+
         <MainLandscapingCalculator unitSystem={unitSystem} onNavigate={onNavigate} />
       </section>
 

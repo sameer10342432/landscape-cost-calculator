@@ -28,6 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const calculatorLinks = [
+    { name: 'Combined Project Estimator (Multi-Feature)', path: '/landscape-project-estimator/' },
     { name: 'Landscaping Cost Calculator (Main)', path: '/' },
     { name: 'Mulch Calculator (Yards & Bags)', path: '/mulch-calculator/' },
     { name: 'Paver Calculator (Patio & Walkway)', path: '/paver-calculator/' },

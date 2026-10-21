@@ -550,3 +550,249 @@ export const SQFT_TIERS: SqFtTier[] = [
     idealFor: 'Comprehensive entertainer backyards and luxury outdoor living rooms.',
   },
 ];
+
+// ==========================================
+// LAWN & SOD VARIETIES
+// ==========================================
+export interface LawnVariety {
+  name: string;
+  sqFtRate: number; // material $/sq ft
+  laborHoursPer100SqFt: number;
+  description: string;
+}
+
+export const LAWN_VARIETIES: Record<string, LawnVariety> = {
+  bluegrass: {
+    name: 'Kentucky Bluegrass Sod',
+    sqFtRate: 1.85,
+    laborHoursPer100SqFt: 1.2,
+    description: 'Dense, premium cool-season turf. Soft barefoot feel, deep emerald color.',
+  },
+  bermuda: {
+    name: 'Bermuda Grass Sod',
+    sqFtRate: 1.40,
+    laborHoursPer100SqFt: 1.0,
+    description: 'Drought-hardy warm-season turf. Exceptional wear tolerance for high foot traffic.',
+  },
+  zoysia: {
+    name: 'Zoysia Palmetto Sod',
+    sqFtRate: 2.35,
+    laborHoursPer100SqFt: 1.3,
+    description: 'Choke-out weed density, carpet-like texture, low mowing frequency.',
+  },
+  fescue: {
+    name: 'Turf-Type Tall Fescue Sod',
+    sqFtRate: 1.55,
+    laborHoursPer100SqFt: 1.1,
+    description: 'Deep root drought resistance, shade tolerant, excellent cool/transitional zone turf.',
+  },
+  hydroseed: {
+    name: 'Hydroseeding Slurry (Seed + Mulch)',
+    sqFtRate: 0.45,
+    laborHoursPer100SqFt: 0.5,
+    description: 'Budget-friendly alternative for large acreages and slope erosion control.',
+  },
+};
+
+// ==========================================
+// NURSERY SHRUB & PLANT GRADES
+// ==========================================
+export interface PlantGrade {
+  name: string;
+  plantPrice: number;
+  laborHours: number;
+  description: string;
+}
+
+export const PLANT_GRADES: Record<string, PlantGrade> = {
+  starter: {
+    name: '1-Gallon Perennial Nursery Starter',
+    plantPrice: 16.50,
+    laborHours: 0.25,
+    description: 'Flowering hostas, daylilies, salvia, ornamental grasses.',
+  },
+  established: {
+    name: '3-Gallon Established Landscape Shrub',
+    plantPrice: 28.50,
+    laborHours: 0.45,
+    description: 'Boxwoods, hydrangeas, spirea, barberry, dwarf conifers.',
+  },
+  specimen: {
+    name: '5-Gallon Large Flowering / Privacy Shrub',
+    plantPrice: 48.00,
+    laborHours: 0.75,
+    description: 'Mature laurel, arborvitae screening, rhododendron, viburnum.',
+  },
+};
+
+// ==========================================
+// ZIP CODE REGIONAL BENCHMARK LOOKUP
+// ==========================================
+export function getRegionFromZip(zip: string): {
+  key: string;
+  name: string;
+  multiplier: number;
+  laborRate: number;
+  matched: boolean;
+  notes: string;
+} {
+  const clean = zip.trim().replace(/\D/g, '');
+  if (clean.length < 5) {
+    return {
+      key: 'national',
+      name: REGIONAL_FACTORS.national.name,
+      multiplier: 1.0,
+      laborRate: 55,
+      matched: false,
+      notes: 'Enter a 5-digit US ZIP code to apply regional BLS labor multipliers.',
+    };
+  }
+
+  const firstDigit = clean[0];
+  switch (firstDigit) {
+    case '0':
+    case '1':
+      return {
+        key: 'northeast',
+        name: REGIONAL_FACTORS.northeast.name,
+        multiplier: REGIONAL_FACTORS.northeast.multiplier,
+        laborRate: REGIONAL_FACTORS.northeast.laborRate,
+        matched: true,
+        notes: `ZIP ${clean} mapped to US Northeast regional cost model (+18% labor benchmark).`,
+      };
+    case '2':
+    case '3':
+      return {
+        key: 'south',
+        name: REGIONAL_FACTORS.south.name,
+        multiplier: REGIONAL_FACTORS.south.multiplier,
+        laborRate: REGIONAL_FACTORS.south.laborRate,
+        matched: true,
+        notes: `ZIP ${clean} mapped to US Southeast / Mid-Atlantic cost model (-8% labor benchmark).`,
+      };
+    case '4':
+    case '5':
+      return {
+        key: 'midwest',
+        name: REGIONAL_FACTORS.midwest.name,
+        multiplier: REGIONAL_FACTORS.midwest.multiplier,
+        laborRate: REGIONAL_FACTORS.midwest.laborRate,
+        matched: true,
+        notes: `ZIP ${clean} mapped to US Midwest / Great Lakes cost model (-5% labor benchmark).`,
+      };
+    case '6':
+    case '7':
+      return {
+        key: 'south',
+        name: 'South Central / Plains (TX, OK, AR, LA)',
+        multiplier: 0.93,
+        laborRate: 49,
+        matched: true,
+        notes: `ZIP ${clean} mapped to South Central regional cost model (-7% labor benchmark).`,
+      };
+    case '8':
+      return {
+        key: 'mountain',
+        name: REGIONAL_FACTORS.mountain.name,
+        multiplier: REGIONAL_FACTORS.mountain.multiplier,
+        laborRate: REGIONAL_FACTORS.mountain.laborRate,
+        matched: true,
+        notes: `ZIP ${clean} mapped to Mountain West cost model (+5% labor benchmark).`,
+      };
+    case '9':
+      return {
+        key: 'westCoast',
+        name: REGIONAL_FACTORS.westCoast.name,
+        multiplier: REGIONAL_FACTORS.westCoast.multiplier,
+        laborRate: REGIONAL_FACTORS.westCoast.laborRate,
+        matched: true,
+        notes: `ZIP ${clean} mapped to US Pacific / West Coast cost model (+25% labor benchmark).`,
+      };
+    default:
+      return {
+        key: 'national',
+        name: REGIONAL_FACTORS.national.name,
+        multiplier: 1.0,
+        laborRate: 55,
+        matched: false,
+        notes: 'ZIP unrecognized; using US National Benchmark.',
+      };
+  }
+}
+
+// ==========================================
+// LANDSCAPE PROJECT PLANNING CHECKLIST
+// ==========================================
+export interface PlanningChecklistItem {
+  id: string;
+  phase: string;
+  title: string;
+  description: string;
+  tip: string;
+}
+
+export const DEFAULT_PLANNING_CHECKLIST: PlanningChecklistItem[] = [
+  {
+    id: 'measure-lot',
+    phase: 'Phase 1: Planning & Pre-Construction',
+    title: 'Measure Yard Boundaries & Draw Scaled Plot Plan',
+    description: 'Determine exact length and width of lawn, patio, and planting bed zones.',
+    tip: 'Break irregular shapes into simple rectangles and triangles to avoid miscalculations.',
+  },
+  {
+    id: 'call-811',
+    phase: 'Phase 1: Planning & Pre-Construction',
+    title: 'Call 811 Before Digging (Utility Line Markings)',
+    description: 'Mandatory free nationwide call to locate underground gas, water, power, and fiber optic lines.',
+    tip: 'Call at least 3 business days before beginning any excavation or retaining wall trenching.',
+  },
+  {
+    id: 'check-hoa',
+    phase: 'Phase 1: Planning & Pre-Construction',
+    title: 'Review HOA Guidelines & Municipal Setback Permits',
+    description: 'Confirm allowed fence heights, retaining wall engineered limits, and property line setbacks.',
+    tip: 'Retaining walls over 4 feet (1.2m) almost universally require a stamped building permit.',
+  },
+  {
+    id: 'soil-drainage',
+    phase: 'Phase 2: Site Preparation & Drainage',
+    title: 'Inspect Drainage Slope & Water Flow Direction',
+    description: 'Ensure ground slopes away from your home foundation at least 1 inch per 10 feet (1% grade).',
+    tip: 'Plan downspout pop-up drains or French drains before laying pavers or soil.',
+  },
+  {
+    id: 'access-clearance',
+    phase: 'Phase 2: Site Preparation & Drainage',
+    title: 'Verify Side-Gate Clearance for Machinery',
+    description: 'Ensure gate opening is at least 36 to 48 inches if using mini-skid steers or power wheelbarrows.',
+    tip: 'If gate is under 36", manual wheelbarrow labor will increase crew hours by 25%–40%.',
+  },
+  {
+    id: 'order-aggregates',
+    phase: 'Phase 3: Material Sourcing & Delivery',
+    title: 'Order Bulk Aggregates & Arrange Staging Area',
+    description: 'Coordinate bulk delivery of road base gravel, bedding sand, and topsoil.',
+    tip: 'Place heavy tarps on driveway prior to gravel dump to protect concrete and ease shoveling.',
+  },
+  {
+    id: 'compact-subbase',
+    phase: 'Phase 4: Construction & Hardscaping',
+    title: 'Mechanical Plate Compaction (In 2-Inch Lifts)',
+    description: 'Compact crushed stone gravel base in 2" layers to reach 98% Standard Proctor Density.',
+    tip: 'Proper compaction prevents uneven sunken paver low-spots after heavy rain.',
+  },
+  {
+    id: 'joint-sand',
+    phase: 'Phase 5: Finishing & Softscaping',
+    title: 'Sweep Polymeric Sand into Dry Paver Joints',
+    description: 'Vibrate sand between paver joints and mist with water spray to activate bonding polymers.',
+    tip: 'Paver surface must be 100% dry before sweeping sand to avoid polymer haze staining.',
+  },
+  {
+    id: 'sod-watering',
+    phase: 'Phase 6: Establishment & Maintenance',
+    title: 'Deep Water Sod & Seed Daily for 14 Days',
+    description: 'Keep root zone moist without puddling until turf sod cannot be lifted by hand.',
+    tip: 'Water early in the morning (5am–8am) to reduce evaporation and fungal disease risk.',
+  },
+];
